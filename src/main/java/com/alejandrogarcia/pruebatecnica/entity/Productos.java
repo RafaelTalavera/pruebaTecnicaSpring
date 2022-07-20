@@ -88,6 +88,4 @@ public class Productos implements Serializable {
 		this.cantidad = cantidad;
 	}
 	
-	
-	
 }
