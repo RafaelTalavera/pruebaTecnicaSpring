@@ -2,7 +2,8 @@
 Proyecto para prueba técnica de springboot
 
 El proyecto ha sido creado a través de spring initializr: https://start.spring.io
-se ha implementado la librería ModelMapper para facilitar las operaciones entre Entitys y DTOs: http://modelmapper.org
+<br>
+Se ha implementado la librería ModelMapper para facilitar las operaciones entre Entitys y DTOs: http://modelmapper.org
 
 Lista de WS:
 <ul>
