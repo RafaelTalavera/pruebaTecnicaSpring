@@ -64,4 +64,14 @@ public class ProductosService {
 		}
 	}
 	
+	
+	public ProductosDTO actualizarProducto(ProductosDTO product) {
+		ProductosDTO response;
+		Productos cat = mapper.map(product, Productos.class);
+		cat = productosRepository.save(cat);
+		
+		response = mapper.map(cat, ProductosDTO.class);
+		return response;
+	}
+	
 }

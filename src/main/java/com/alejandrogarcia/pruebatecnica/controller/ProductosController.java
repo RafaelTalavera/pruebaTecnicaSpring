@@ -6,10 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.alejandrogarcia.pruebatecnica.dto.ProductosDTO;
 import com.alejandrogarcia.pruebatecnica.service.ProductosService;
 
@@ -56,5 +56,19 @@ public class ProductosController {
 		            .status(HttpStatus.NOT_FOUND)                 
 		            .body("No se ha encontrado el producto");
 		}
+	}
+	
+	@PutMapping
+	public ResponseEntity<?> putProducto(@RequestBody ProductosDTO producto) {
+		ProductosDTO existeProducto = productoService.obtenerProductosById(producto.getId());
+		if(null != existeProducto) {
+			ProductosDTO categoriaUpdate = productoService.actualizarProducto(producto);
+			return new ResponseEntity<>(categoriaUpdate,HttpStatus.OK);
+		}else {
+			return ResponseEntity
+		            .status(HttpStatus.NOT_FOUND)                 
+		            .body("No se ha encontrado el producto");
+		}
+		
 	}
 }

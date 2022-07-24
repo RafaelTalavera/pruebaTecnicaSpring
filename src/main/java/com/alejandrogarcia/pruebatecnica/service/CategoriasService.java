@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.alejandrogarcia.pruebatecnica.dto.CategoriasDTO;
 import com.alejandrogarcia.pruebatecnica.entity.Categorias;
+import com.alejandrogarcia.pruebatecnica.entity.Productos;
 import com.alejandrogarcia.pruebatecnica.repository.CategoriasRepository;
 
 @Service
@@ -27,6 +28,26 @@ public class CategoriasService {
 	}
 	
 	public CategoriasDTO guardarCategoria(CategoriasDTO categoria) {
+		CategoriasDTO response;
+		Categorias cat = mapper.map(categoria, Categorias.class);
+		cat = categoriaRepository.save(cat);
+		
+		response = mapper.map(cat, CategoriasDTO.class);
+		return response;
+	}
+	
+	public boolean deleteCategoria(long id) {
+		Categorias categoria = categoriaRepository.findById(id);
+		if(null != categoria) {
+			categoriaRepository.delete(categoria);
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
+	
+	public CategoriasDTO actualizaCategoria(CategoriasDTO categoria) {
 		CategoriasDTO response;
 		Categorias cat = mapper.map(categoria, Categorias.class);
 		cat = categoriaRepository.save(cat);
