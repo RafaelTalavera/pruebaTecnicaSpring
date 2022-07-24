@@ -17,4 +17,7 @@ public interface ClientesRepository extends CrudRepository<Clientes, Long> {
 	Clientes getClientesById(long id);
 	
 	List<Clientes> findAll();
+	
+	
+	Clientes getClientesByEmail(String mail);
 }

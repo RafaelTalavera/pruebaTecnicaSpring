@@ -1,7 +1,5 @@
 package com.alejandrogarcia.pruebatecnica.dto;
 
-import java.util.List;
-
 
 public class CompraProductoDTO {
 
@@ -11,18 +9,18 @@ public class CompraProductoDTO {
 	
 	private int cantidad;
 
-	private List<ProductosDTO> productos;
+	private ProductosDTO producto;
 
 	public CompraProductoDTO() {
 		super();
 	}
 
-	public CompraProductoDTO(Long id, float total, int cantidad, List<ProductosDTO> productos) {
+	public CompraProductoDTO(Long id, float total, int cantidad, ProductosDTO producto) {
 		super();
 		this.id = id;
 		this.total = total;
 		this.cantidad = cantidad;
-		this.productos = productos;
+		this.producto = producto;
 	}
 
 	public Long getId() {
@@ -49,12 +47,12 @@ public class CompraProductoDTO {
 		this.cantidad = cantidad;
 	}
 
-	public List<ProductosDTO> getProductos() {
-		return productos;
+	public ProductosDTO getProducto() {
+		return producto;
 	}
 
-	public void setProductos(List<ProductosDTO> productos) {
-		this.productos = productos;
+	public void setProducto(ProductosDTO producto) {
+		this.producto = producto;
 	}
 	
 	
