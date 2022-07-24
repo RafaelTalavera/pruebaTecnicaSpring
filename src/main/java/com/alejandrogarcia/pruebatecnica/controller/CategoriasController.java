@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alejandrogarcia.pruebatecnica.dto.CategoriasDTO;
-import com.alejandrogarcia.pruebatecnica.entity.Categorias;
 import com.alejandrogarcia.pruebatecnica.service.CategoriasService;
 
 @RestController
@@ -35,8 +34,15 @@ public class CategoriasController {
 	}
 	
 	@PostMapping("/categoria")
-	public ResponseEntity<CategoriasDTO> postCategoria(@RequestBody CategoriasDTO categoria) {
-		
+	public ResponseEntity<?> postCategoria(@RequestBody CategoriasDTO categoria) {
+		if(null != categoria.getId()) {
+			CategoriasDTO existeCategoria = categoriaService.obtenerCategoriaById(categoria.getId());
+			if(null != existeCategoria) {
+				return ResponseEntity
+			            .status(HttpStatus.FOUND)                 
+			            .body("La categoria ya existe");
+			}
+		}
 		CategoriasDTO response = categoriaService.guardarCategoria(categoria);
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	

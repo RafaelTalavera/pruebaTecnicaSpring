@@ -34,6 +34,15 @@ public class ProductosController {
 	
 	@PostMapping("/productos")
 	public ResponseEntity<?> postProducto(@RequestBody ProductosDTO producto) {
+		
+		if(null != producto.getId()) {
+			ProductosDTO existeProducto = productoService.obtenerProductosById(producto.getId());
+			if(null != existeProducto) {
+				return ResponseEntity
+			            .status(HttpStatus.FOUND)                 
+			            .body("El producto ya existe");
+			}
+		}
 		ProductosDTO response = productoService.guardarProducto(producto);
 		if(null == response) {
 			return ResponseEntity
@@ -58,7 +67,7 @@ public class ProductosController {
 		}
 	}
 	
-	@PutMapping
+	@PutMapping("/productos")
 	public ResponseEntity<?> putProducto(@RequestBody ProductosDTO producto) {
 		ProductosDTO existeProducto = productoService.obtenerProductosById(producto.getId());
 		if(null != existeProducto) {

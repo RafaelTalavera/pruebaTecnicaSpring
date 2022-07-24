@@ -38,7 +38,14 @@ public class ComprasController {
 	
 	@PostMapping("/compras")
 	public ResponseEntity<?> añadirCompra(@RequestBody ComprasDTO compra,@RequestParam("id") long idUsuario){
-		
+		if(null != compra.getId()) {
+			ComprasDTO existeCompra = compraService.getCompraById(compra.getId());
+			if(null != existeCompra) {
+				return ResponseEntity
+			            .status(HttpStatus.FOUND)                 
+			            .body("La compra ya existe");
+			}
+		}
 		ComprasDTO response = compraService.postCompra(compra, idUsuario);
 		
 		return new ResponseEntity<>(response,HttpStatus.OK);

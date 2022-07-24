@@ -30,7 +30,7 @@ public class Productos implements Serializable {
 	
 	private int cantidad;
 
-	@OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.DETACH, orphanRemoval = true)
 	@JoinColumn(name = "categoria_id")
     private List<Categorias> categoria;
 	

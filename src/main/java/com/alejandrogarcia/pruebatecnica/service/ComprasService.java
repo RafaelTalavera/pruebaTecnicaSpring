@@ -9,7 +9,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alejandrogarcia.pruebatecnica.dto.CategoriasDTO;
 import com.alejandrogarcia.pruebatecnica.dto.ComprasDTO;
+import com.alejandrogarcia.pruebatecnica.entity.Categorias;
 import com.alejandrogarcia.pruebatecnica.entity.Clientes;
 import com.alejandrogarcia.pruebatecnica.entity.CompraProducto;
 import com.alejandrogarcia.pruebatecnica.entity.Compras;
@@ -43,8 +45,15 @@ public class ComprasService {
 	 * @return ComprasDTO
 	 */
 	public ComprasDTO getCompraById(long id) {
+		Compras compraDB = comprasRepository.getComprasById(id);
+		ComprasDTO compra = null;
+		if(null != compraDB) {
+			compra = mapper.map(compraDB,ComprasDTO.class);
 		
-		return mapper.map(comprasRepository.getComprasById(id),ComprasDTO.class);
+			return compra;
+		}else {
+			return null;
+		}
 	}
 	/**
 	 * Añadir una compra a un cliente
@@ -56,8 +65,8 @@ public class ComprasService {
 		
 		ComprasDTO compraRes;
 		Compras compraSave = mapper.map(compra, Compras.class);
-		actualizarCantidadProducto(compraSave);
-		
+		List<CompraProducto> compraProducto = actualizarCantidadProducto(compraSave);
+		compraSave.setCompraProducto(compraProducto);
 		cliente.getCompras().add(compraSave);
 		
 		compraSave = comprasRepository.save(compraSave);
@@ -66,16 +75,20 @@ public class ComprasService {
 
 		return compraRes;
 	}
-	private void actualizarCantidadProducto(Compras compraSave) {
+	private List<CompraProducto> actualizarCantidadProducto(Compras compraSave) {
+		List<CompraProducto> compraProducto = new ArrayList<>();
 		for(CompraProducto transaccion : compraSave.getCompraProducto()) {
 			
 			Productos prod = transaccion.getProducto();
 			if(prod.getCantidad() >= transaccion.getCantidad()) {
+				prod = productoRepository.findById(prod.getId()).get();
 				prod.setCantidad(prod.getCantidad() - transaccion.getCantidad());
 				productoRepository.save(prod);
 			}
-			compraProdRepository.save(transaccion);
+			compraProducto.add(compraProdRepository.save(transaccion));
+			
 		}
+		return compraProducto;
 	}
 	/**
 	 * Obtener Compras vinculadas a un usuario
@@ -83,15 +96,18 @@ public class ComprasService {
 	 * @return ComprasDTO
 	 */
 	public List<ComprasDTO> getCompras(long idUsuario){
+		List<ComprasDTO> comprasDTO = new ArrayList<>();
 		Clientes cliente = clienteRepository.getClientesById(idUsuario);
-		List<Compras> compras = cliente.getCompras();
-		List<ComprasDTO> comprasDTO = new ArrayList<ComprasDTO>();
-		for(Compras com : compras) {
-			
-			comprasDTO.add(mapper.map(com, ComprasDTO.class));
+		if(null != cliente) {
+			List<Compras> compras = cliente.getCompras();
+			comprasDTO = new ArrayList<ComprasDTO>();
+			for(Compras com : compras) {
+				
+				comprasDTO.add(mapper.map(com, ComprasDTO.class));
+			}
 		}
-		
 		return comprasDTO;
+		
 	}
 	
 }

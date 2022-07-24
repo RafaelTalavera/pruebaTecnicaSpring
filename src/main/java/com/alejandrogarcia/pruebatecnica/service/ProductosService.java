@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.alejandrogarcia.pruebatecnica.dto.CategoriasDTO;
 import com.alejandrogarcia.pruebatecnica.dto.ProductosDTO;
 import com.alejandrogarcia.pruebatecnica.entity.Categorias;
+
 import com.alejandrogarcia.pruebatecnica.entity.Productos;
 import com.alejandrogarcia.pruebatecnica.repository.CategoriasRepository;
 import com.alejandrogarcia.pruebatecnica.repository.ProductosRepository;
@@ -28,8 +29,15 @@ public class ProductosService {
 	ModelMapper mapper = new ModelMapper();
 	
 	public ProductosDTO obtenerProductosById(long id) {
+		Productos productoDB = productosRepository.findById(id);
+		ProductosDTO producto = null;
+		if(null != productoDB) {
+			producto = mapper.map(productoDB,ProductosDTO.class);
 		
-		return mapper.map(productosRepository.findById(id),ProductosDTO.class);
+			return producto;
+		}else {
+			return null;
+		}
 	}
 	
 	

@@ -26,7 +26,7 @@ public class Compras {
 	
 	private String estado;
 	
-	@OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.DETACH, orphanRemoval = true)
 	@JoinColumn(name = "compra_producto_id")
 	private List<CompraProducto> compraProducto;
 
