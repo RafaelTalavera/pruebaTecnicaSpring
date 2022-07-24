@@ -1,23 +1,10 @@
-package com.alejandrogarcia.pruebatecnica.entity;
+package com.alejandrogarcia.pruebatecnica.dto;
 
 import java.sql.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+public class ComprasDTO {
 
-@Entity
-public class Compras {
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "id")
 	private Long id;
 	
 	private Date fecha;
@@ -26,16 +13,15 @@ public class Compras {
 	
 	private String estado;
 	
-	@OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
-	@JoinColumn(name = "compra_producto_id")
-	private List<CompraProducto> compraProducto;
+	private List<CompraProductoDTO> compraProducto;
 
 	
-	public Compras() {
+	
+	public ComprasDTO() {
 		super();
 	}
 
-	public Compras(Long id, Date fecha, String metodo_pago, String estado, List<CompraProducto> compraProducto) {
+	public ComprasDTO(Long id, Date fecha, String metodo_pago, String estado, List<CompraProductoDTO> compraProducto) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -76,14 +62,13 @@ public class Compras {
 		this.estado = estado;
 	}
 
-	public List<CompraProducto> getCompraProducto() {
+	public List<CompraProductoDTO> getCompraProducto() {
 		return compraProducto;
 	}
 
-	public void setCompraProducto(List<CompraProducto> compraProducto) {
+	public void setCompraProducto(List<CompraProductoDTO> compraProducto) {
 		this.compraProducto = compraProducto;
 	}
-	
 	
 	
 	

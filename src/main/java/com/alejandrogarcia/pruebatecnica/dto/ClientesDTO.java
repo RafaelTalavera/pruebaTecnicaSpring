@@ -1,23 +1,12 @@
-package com.alejandrogarcia.pruebatecnica.entity;
+package com.alejandrogarcia.pruebatecnica.dto;
 
 import java.sql.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import com.alejandrogarcia.pruebatecnica.entity.Compras;
 
-@Entity
-public class Clientes {
+public class ClientesDTO {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "id")
 	private Long id;
 	
 	private String nombre;
@@ -30,16 +19,14 @@ public class Clientes {
 	
 	private String email;
 	
-	@OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
-	@JoinColumn(name = "compras_id")
 	private List<Compras> compras;
 
 	
-	public Clientes() {
+	public ClientesDTO() {
 		super();
 	}
 
-	public Clientes(Long id, String nombre, String apellidos, String telefono, Date fechaNacimiento, String email,
+	public ClientesDTO(Long id, String nombre, String apellidos, String telefono, Date fechaNacimiento, String email,
 			List<Compras> compras) {
 		super();
 		this.id = id;
@@ -106,7 +93,6 @@ public class Clientes {
 	public void setCompras(List<Compras> compras) {
 		this.compras = compras;
 	}
-	
 	
 	
 }

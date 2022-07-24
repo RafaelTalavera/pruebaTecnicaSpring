@@ -7,14 +7,17 @@ import javax.transaction.Transactional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.alejandrogarcia.pruebatecnica.entity.Productos;
+import com.alejandrogarcia.pruebatecnica.entity.Clientes;
 
 @Repository
 @Transactional
-public interface ProductosRepository extends CrudRepository<Productos, Long> {
+public interface ClientesRepository extends CrudRepository<Clientes, Long> {
 
-	Productos findById(long id);
 	
-	List<Productos> findAll();
+	Clientes getClientesById(long id);
 	
+	List<Clientes> findAll();
+	
+	
+	Clientes getClientesByEmail(String mail);
 }

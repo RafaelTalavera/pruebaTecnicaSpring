@@ -7,14 +7,15 @@ import javax.transaction.Transactional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.alejandrogarcia.pruebatecnica.entity.Productos;
+import com.alejandrogarcia.pruebatecnica.entity.CompraProducto;
+
 
 @Repository
 @Transactional
-public interface ProductosRepository extends CrudRepository<Productos, Long> {
+public interface CompraProductoRepository extends CrudRepository<CompraProducto, Long>{
 
-	Productos findById(long id);
+	CompraProducto getCompraProductoById(long id);
 	
-	List<Productos> findAll();
+	List<CompraProducto> findAll();
 	
 }
