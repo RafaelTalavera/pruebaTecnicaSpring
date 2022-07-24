@@ -20,20 +20,26 @@ public class ClientesController {
 	public ClientesService clientesService;
 
 	@GetMapping("/cliente")
-	public ResponseEntity<ClientesDTO> getCliente(@RequestParam(value = "id") long id) {
+	public ResponseEntity<?> getCliente(@RequestParam(value = "id") long id) {
 		
 		ClientesDTO cliente = clientesService.getCliente(id);
-		
+		if(null == cliente) {
+			return ResponseEntity
+		            .status(HttpStatus.NOT_FOUND)                 
+		            .body("No se ha encontrado el cliente");
+		}
 		return new ResponseEntity<>(cliente,HttpStatus.OK);
 		
 	}
 	
 	@PostMapping("/cliente")
-	public ResponseEntity<ClientesDTO> registroCliente(@RequestBody ClientesDTO cliente) {
+	public ResponseEntity<?> registroCliente(@RequestBody ClientesDTO cliente) {
 		ClientesDTO existeCliente = clientesService.getClienteByMail(cliente.getEmail());
 		
 		if(null != existeCliente) {
-			return new ResponseEntity<>(HttpStatus.FOUND);
+			return ResponseEntity
+		            .status(HttpStatus.FOUND)                 
+		            .body("El cliente ya existe");
 		}
 		ClientesDTO response = clientesService.postCliente(cliente);
 		
@@ -42,11 +48,13 @@ public class ClientesController {
 	
 	
 	@PutMapping("/cliente")
-	public ResponseEntity<ClientesDTO> actualizarCliente(@RequestBody ClientesDTO cliente){
+	public ResponseEntity<?> actualizarCliente(@RequestBody ClientesDTO cliente){
 		ClientesDTO existeCliente = clientesService.getCliente(cliente.getId());
 		
 		if(null == existeCliente) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return ResponseEntity
+		            .status(HttpStatus.NOT_FOUND)                 
+		            .body("No se ha encontrado el cliente");
 		}
 		
 		ClientesDTO response = clientesService.putCliente(cliente);

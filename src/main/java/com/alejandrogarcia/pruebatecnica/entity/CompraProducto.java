@@ -20,10 +20,10 @@ public class CompraProducto {
 	
 	private int cantidad;
 	
-	@OneToOne(cascade = CascadeType.MERGE, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.DETACH, orphanRemoval = true)
 	@JoinColumn(name = "productos_id", referencedColumnName = "id")
 	private Productos producto;
-	
+	 
 	public CompraProducto() {
 		super();
 	}

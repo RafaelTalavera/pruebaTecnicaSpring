@@ -21,9 +21,12 @@ public class ClientesService {
 	ModelMapper mapper = new ModelMapper();
 	
 	public ClientesDTO getCliente(long id) {
-		Clientes clienteBD = clienteRepository.getClientesById(id);
-		ClientesDTO cliente = mapper.map(clienteBD,ClientesDTO.class);
 		
+		Clientes clienteBD = clienteRepository.getClientesById(id);
+		ClientesDTO cliente = null;
+		if(null != clienteBD) {
+			cliente = mapper.map(clienteBD,ClientesDTO.class);
+		}
 		return cliente;
 	}
 	
