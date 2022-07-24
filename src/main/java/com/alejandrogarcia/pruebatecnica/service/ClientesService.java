@@ -19,7 +19,11 @@ public class ClientesService {
 
 	
 	ModelMapper mapper = new ModelMapper();
-	
+	/**
+	 * Obtener cliente por el idCliente
+	 * @param id
+	 * @return ClientesDTO
+	 */
 	public ClientesDTO getCliente(long id) {
 		
 		Clientes clienteBD = clienteRepository.getClientesById(id);
@@ -29,7 +33,11 @@ public class ClientesService {
 		}
 		return cliente;
 	}
-	
+	/**
+	 * Guardar cliente
+	 * @param cliente
+	 * @return ClientesDTO
+	 */
 	public ClientesDTO postCliente(ClientesDTO cliente) {
 		
 		ClientesDTO clienteDTO;
@@ -41,6 +49,11 @@ public class ClientesService {
 		return clienteDTO;
 	}
 	
+	/**
+	 * Actualizar cliente
+	 * @param cliente
+	 * @return ClientesDTO
+	 */
 	public ClientesDTO putCliente(ClientesDTO cliente) {
 		
 		Clientes clienteModificado = mapper.map(cliente,Clientes.class);
@@ -50,7 +63,11 @@ public class ClientesService {
 		return cliente;
 	}
 	
-	
+	/**
+	 * Obtener cliente por el campo email
+	 * @param mail
+	 * @return ClientesDTO
+	 */
 	public ClientesDTO getClienteByMail(String mail) {
 		ClientesDTO cliente;
 		Clientes clienteBD = clienteRepository.getClientesByEmail(mail);

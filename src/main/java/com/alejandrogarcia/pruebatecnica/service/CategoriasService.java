@@ -18,7 +18,11 @@ public class CategoriasService {
 	private CategoriasRepository categoriaRepository;
 	
 	ModelMapper mapper = new ModelMapper();
-	
+	/**
+	 * Obtener categoria por idCategoria
+	 * @param id
+	 * @return CategoriasDTO
+	 */
 	public CategoriasDTO obtenerCategoriaById(long id) {
 		Categorias categoriaDB = categoriaRepository.findById(id);
 		CategoriasDTO categoria = null;
@@ -30,7 +34,11 @@ public class CategoriasService {
 			return null;
 		}
 	}
-	
+	/**
+	 * Guardar categoria
+	 * @param categoria
+	 * @return CategoriasDTO
+	 */
 	public CategoriasDTO guardarCategoria(CategoriasDTO categoria) {
 		CategoriasDTO response;
 		Categorias cat = mapper.map(categoria, Categorias.class);
@@ -39,7 +47,11 @@ public class CategoriasService {
 		response = mapper.map(cat, CategoriasDTO.class);
 		return response;
 	}
-	
+	/**
+	 * Eliminar categoria
+	 * @param id
+	 * @return true -> eliminado false-> no eliminado
+	 */
 	public boolean deleteCategoria(long id) {
 		Categorias categoria = categoriaRepository.findById(id);
 		if(null != categoria) {
@@ -51,6 +63,11 @@ public class CategoriasService {
 		
 	}
 	
+	/**
+	 * Actualizar categoria
+	 * @param categoria
+	 * @return CategoriasDTO
+	 */
 	public CategoriasDTO actualizaCategoria(CategoriasDTO categoria) {
 		CategoriasDTO response;
 		Categorias cat = mapper.map(categoria, Categorias.class);

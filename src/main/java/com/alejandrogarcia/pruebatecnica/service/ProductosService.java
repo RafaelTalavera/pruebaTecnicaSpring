@@ -28,6 +28,11 @@ public class ProductosService {
 	
 	ModelMapper mapper = new ModelMapper();
 	
+	/**
+	 * Obtener producto por el idProducto
+	 * @param id
+	 * @return ProductosDTO
+	 */
 	public ProductosDTO obtenerProductosById(long id) {
 		Productos productoDB = productosRepository.findById(id);
 		ProductosDTO producto = null;
@@ -40,7 +45,11 @@ public class ProductosService {
 		}
 	}
 	
-	
+	/**
+	 * Guardar producto
+	 * @param product
+	 * @return ProductosDTO
+	 */
 	public ProductosDTO guardarProducto(ProductosDTO product) {
 
 		ArrayList<Long> idsCategorias = new ArrayList<Long>();
@@ -61,7 +70,11 @@ public class ProductosService {
 			 return null;
 		 }
 	}
-	
+	/**
+	 * Eliminar producto
+	 * @param id
+	 * @return true->eliminado false->no eliminado
+	 */
 	public boolean deleteProducto(long id) {
 		Productos productoBD = productosRepository.findById(id);
 		if(null != productoBD) {
@@ -72,7 +85,11 @@ public class ProductosService {
 		}
 	}
 	
-	
+	/**
+	 * Actualizar un producto
+	 * @param product
+	 * @return ProductosDTO
+	 */ 
 	public ProductosDTO actualizarProducto(ProductosDTO product) {
 		ProductosDTO response;
 		Productos cat = mapper.map(product, Productos.class);
